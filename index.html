@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Priconne Gacha Sim</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</head>
+<body class="container">
+    <div class="jumbotron">
+        <h1>Priconne Gacha Simulator</h1>
+        <p>Because why not?</p>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                Click to Draw
+            </h5>
+            <div class="card-text">
+                <button type="button" class="btn" onclick="roll()">10-ROLL</button>
+                <br>
+                <div id="results"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const threeStar = [
+            'Kyouka',
+            'Arisa',
+            'Jun',
+            'Djeeta',
+            'Shizuru',
+            'Ninon',
+            'Monica',
+            'Rino',
+            'Nozomi',
+            'Hatsune',
+            'Saren',
+            'Maho',
+            'Makoto',
+            'Akino',
+            'Anna',
+            'Io'
+        ]
+        const twoStar = [
+            'Ayane',
+            'Rin',
+            'Akari',
+            'Eriko',
+            'Kaori',
+            'Kuuka',
+            'Shiori',
+            'Shinobu',
+            'Suzuna',
+            'Tamaki',
+            'Chika',
+            'Mahiru',
+            'Mitsuki',
+            'Mifuyu',
+            'Mimi',
+            'Miyako',
+            'Yuki'
+        ]
+        const oneStar = [
+            'Hiyori',
+            'Rei',
+            'Misogi',
+            'Kurumi',
+            'Yori',
+            'Suzume',
+            'Yukari',
+            'Aoi',
+            'Misaki',
+            'Rima',
+            'Kyaru',
+            'Yui',
+            'Coccoro',
+            'Pecorine'
+        ]
+        let result
+        let count = 0
+
+        function roll() {
+            let rand, length, src, img, ext
+            count++
+            // 3* = 2%, 2* = 18%, 1* = 80%; 10 roll = at least 2*
+            for(let i = 0; i < 10; i++){
+                rand = Math.floor(Math.random() * 100 + 1)
+                length;
+                src = 'assets/img/'
+                img = $('<img>')
+                ext = '.jpg'
+
+                if (rand > 98) {
+                    length = threeStar.length
+                    rand = Math.floor(Math.random() * length)
+                    result = threeStar[rand]
+                } else if (rand <= 98 && i == 0 || rand <= 98 && rand > 80 ) {
+                    length = twoStar.length
+                    rand = Math.floor(Math.random() * length)
+                    result = twoStar[rand]
+                } else {
+                    length = oneStar.length
+                    rand = Math.floor(Math.random() * length)
+                    result = oneStar[rand]
+                }
+
+                ext = result == 'Rin' ? '.png' : ext
+                
+                img.attr('src', src + result.toLowerCase() + ext)
+                img.attr('alt', result)
+                img.attr('height', 95)
+                img.attr('width', 95)
+                
+                if (i == 5) {
+                    $('#results').prepend('<br>')
+                }
+
+                $('#results').prepend(img)
+            }
+            
+            $('#results').prepend(`<p>Set ${count}`)
+            $('#results').prepend('<hr>')
+        }
+    </script>
+</body>
+</html>
