@@ -24,6 +24,9 @@
             </h5>
             <div class="card-text">
                 <button type="button" class="btn" onclick="roll()">10-ROLL</button>
+                <div>Three Star Count: <span id="three">0</span></div>
+                <div>Two Star Count: <span id="two">0</span></div>
+                <div>One Start Count: <span id="one">0</span></div>
                 <br>
                 <div id="results"></div>
             </div>
@@ -79,13 +82,11 @@
             'Aoi',
             'Misaki',
             'Rima',
-            'Kyaru',
-            'Yui',
-            'Coccoro',
-            'Pecorine'
+            'Yui'
         ]
         let result
         let count = 0
+        let threeCount = 0, twoCount = 0, oneCount = 0
 
         function roll() {
             let rand, length, src, img, ext
@@ -102,14 +103,20 @@
                     length = threeStar.length
                     rand = Math.floor(Math.random() * length)
                     result = threeStar[rand]
+                    threeCount++
+                    $('#three').html(threeCount)
                 } else if (rand <= 98 && i == 0 || rand <= 98 && rand > 80 ) {
                     length = twoStar.length
                     rand = Math.floor(Math.random() * length)
                     result = twoStar[rand]
+                    twoCount++
+                    $('#two').html(twoCount)
                 } else {
                     length = oneStar.length
                     rand = Math.floor(Math.random() * length)
                     result = oneStar[rand]
+                    oneCount++
+                    $('#one').html(oneCount)
                 }
 
                 ext = result == 'Rin' ? '.png' : ext
